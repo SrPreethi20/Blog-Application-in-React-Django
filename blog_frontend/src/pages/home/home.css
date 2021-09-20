@@ -1,0 +1,25 @@
+.home {
+    display: flex;
+}
+
+.blogButton {
+    margin: 30px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: teal;
+    color: white;
+    font-size: larger;
+    cursor: pointer;
+}
+
+.editButton {
+    margin: 15px;
+    padding: 7px;
+    border: none;
+    border-radius: 7px;
+    background-color: teal;
+    color: white;
+    /* font-size: larger; */
+    cursor: pointer;
+}
