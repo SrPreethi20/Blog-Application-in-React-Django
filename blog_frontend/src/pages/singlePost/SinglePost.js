@@ -53,6 +53,7 @@ export default function SinglePost(props) {
         }
         else {
             console.log('No change in Blog data..');
+            props.history.push('/user-blogs');
         }
         props.history.push('/user-blogs');
     }
