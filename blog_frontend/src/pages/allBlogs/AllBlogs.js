@@ -23,7 +23,7 @@ export default function AllBlogs(props) {
             {allBlogs.length > 0 ?
                 allBlogs.map((blog, index) =>
                     <div key={index} className="post">
-                        <img className="postImg" src={`http://localhost:8000${blog.img}`} alt="postImg1"></img>
+                        <img className="postImg" src={`${Auth.BASE_URL}${blog.img}`} alt="postImg1"></img>
                         <div className="postInfo">
                             <span className="postTitle">
                                 {blog.title}
@@ -38,7 +38,7 @@ export default function AllBlogs(props) {
                         <hr></hr>
                     </div>
                 )
-                : !allBlogs && 
+                : allBlogs == 0 && 
                 <div>
                     <p className="displayMsg">No Blogs to Display !!!</p>
                     {!user && <p className="displayMsg">Login to Create new Blog !!!</p>}

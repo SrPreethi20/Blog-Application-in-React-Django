@@ -62,6 +62,7 @@ class ListAllBlogsAPI(APIView):
 
 
 class UpdateBlogAPI(APIView):
+    permission_classes = (IsAuthenticated, )
     def put(self, request, id=None):
         print('user ****',request.user)
         blog = Blog.objects.get(id=id)
@@ -81,7 +82,8 @@ class UpdateBlogAPI(APIView):
         print('AUTHOR ****', blog.author)
         if request.user == blog.author:
             blog.delete()
-            return Response({'msg': 'Blog deleted successfully'})
+            msg = f'Blog with ID {id} deleted successfully'
+            return Response({'msg': msg})
         return Response({'msg': 'Unauthorized request'})
 
     

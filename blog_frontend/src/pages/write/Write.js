@@ -14,7 +14,7 @@ export default function Write(props) {
     const submitPost = (e) => {
         e.preventDefault();
         const formData = new FormData()
-        formData.append('img',image);
+        image && formData.append('img',image);
         formData.append('title',title);
         formData.append('content',text);
         formData.append('author',user_id);

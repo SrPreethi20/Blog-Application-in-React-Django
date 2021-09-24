@@ -1,12 +1,14 @@
 import axios from "axios";
 
-const LOGIN_URL = 'http://localhost:8000/login/';
-const REGISTER_URL = 'http://localhost:8000/register/';
-const ALL_BLOGS_URL = 'http://localhost:8000/all-blogs/';
-const USER_BLOGS_URL = 'http://localhost:8000/user-blogs/';
-const REFRESH_TOKEN_URL = 'http://localhost:8000/refresh/';
-const GET_USERS_URL = 'http://localhost:8000/users/';
-const CREATE_BLOG_URL = 'http://localhost:8000/add-blog/';
+const BASE_URL = 'http://localhost:8000';
+const LOGIN_URL = BASE_URL + '/login/';
+const REGISTER_URL = BASE_URL + '/register/';
+const ALL_BLOGS_URL = BASE_URL + '/all-blogs/';
+const USER_BLOGS_URL = BASE_URL + '/user-blogs/';
+const REFRESH_TOKEN_URL = BASE_URL + '/refresh/';
+const GET_USERS_URL = BASE_URL + '/users/';
+const CREATE_BLOG_URL = BASE_URL + '/add-blog/';
+const SINGLE_BLOG_URL = BASE_URL + '/blog/';
 
 async function Login(data) {
     try {
@@ -68,7 +70,8 @@ async function GetUsers() {
 }
 
 async function EditBlog(blog_id, formData) {
-    const editBlogUrl = `http://localhost:8000/blog/${blog_id}/`
+    // const editBlogUrl = `http://localhost:8000/blog/${blog_id}/`
+    const editBlogUrl = `${SINGLE_BLOG_URL}${blog_id}/`
     const header_config = {headers: {
                             Authorization: `Bearer ${GetAccessToken()}`,
                             'content-type': 'multipart/form-data' }}
@@ -102,8 +105,10 @@ async function CreateBlog(formData) {
     }
 }
 
-async function DeleteBlog(blogId) {
-    const url = `http://localhost:8000/blog/${blogId}/`
+async function DeleteBlog(blog_id) {
+    // const url = `http://localhost:8000/blog/${blogId}/`
+    const url = `${SINGLE_BLOG_URL}${blog_id}/`
+
     const header_config = {headers: {Authorization: `Bearer ${GetAccessToken()}`}}
     try {
         const res = await axios.delete(url, header_config)
@@ -113,7 +118,7 @@ async function DeleteBlog(blogId) {
         console.log('Delete Blog request failed with error - ', err)
         if(err.response.status == 401) {
             GetAccessTokenFromRefreshToken();
-            DeleteBlog(blogId);
+            DeleteBlog(blog_id);
         }
     }
 }
@@ -144,6 +149,7 @@ function SetRefreshToken(token) {
 }
 
 const Auth = {
+    BASE_URL,
     GetAccessToken,
     GetRefreshToken,
     SetAccessToken,

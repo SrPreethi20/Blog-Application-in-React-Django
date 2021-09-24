@@ -33,11 +33,14 @@ export default function UserBlogs(props) {
         Auth.DeleteBlog(id)
         .then(res => {
             console.log('Blog deleted successfully --', res)
-            setReload(true);
+            console.log('Reloading page..')
+            setReload(!reload);
         })
         .catch(err => {
             console.log('Failed to delete Blog', err);
             alert('Failed to delete Blog');
+            console.log('Reloading page..')
+            setReload(!reload);
         })
     }
 
@@ -46,13 +49,12 @@ export default function UserBlogs(props) {
             {userBlogs.length > 0 ?
                 userBlogs.map((blog, index) =>
                     <div key={index} className="post">
-                        <img className="postImg" src={`http://localhost:8000${blog.img}`} alt="postImg1"></img>
+                        <img className="postImg" src={`${Auth.BASE_URL}${blog.img}`} alt="postImg1"></img>
                         <div className="postInfo">
                             <span className="postTitle">
                                 {blog.title}
                             </span>
                             <hr />
-                            {/* <span className="postDate">{blog.created_on}</span> */}
                         </div>
                         <p className="postDesc">
                             {blog.content}
@@ -66,7 +68,7 @@ export default function UserBlogs(props) {
                         <hr></hr>
                     </div>
                 )
-                : !userBlogs &&
+                : userBlogs.length == 0 &&
                 <div>
                     <p className="displayMsg">No Blogs to Display !!!</p>
                     {!user && <p>Login to Create new Blog !!!</p>}

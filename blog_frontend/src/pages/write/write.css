@@ -61,3 +61,10 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+.fileInput {
+    font-size: 20px;
+    border: none;
+    padding: 20px;
+    width: 70vw;
+}

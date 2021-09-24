@@ -30,7 +30,7 @@ export default function SinglePost(props) {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('img',image);
+        image && formData.append('img',image);
         if(Object.keys(editBlog).indexOf('title') == -1) {
             formData.append('title', blog.title);
         }
@@ -49,12 +49,12 @@ export default function SinglePost(props) {
                 } else {
                     alert('Failed to update Blog data');
                 }
-                props.history.push('/user-blogs');
             })
         }
         else {
             console.log('No change in Blog data..');
         }
+        props.history.push('/user-blogs');
     }
 
     return (
@@ -95,7 +95,8 @@ export default function SinglePost(props) {
                 <hr></hr>
                 <label className="singlePostWrapper"><span className="singlePostTitle">Img</span>:
                     <label className="singlePostWrapper"><span className="singlePostTitle">Currently</span>: {blog.img}</label>
-                    <input type="file" onChange={e => setImage(e.target.files[0])}></input>
+                    <br></br>
+                    <input className="fileInput" type="file" onChange={e => setImage(e.target.files[0])}></input>
                 </label>
                 <br></br>
                 <hr></hr>
@@ -103,18 +104,5 @@ export default function SinglePost(props) {
             </form>
             </div>}
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
     )
 }
